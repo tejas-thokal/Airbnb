@@ -1,0 +1,50 @@
+.guest-selector {
+    width: 100%;
+    padding: 1rem;
+    height: 100%;
+    border-radius: 10px;
+  }
+  
+  .guest-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+  }
+  
+  .guest-row:last-child {
+    border-bottom: none;
+  }
+  
+  .guest-info h4 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .sub-text {
+    margin: 0;
+    font-size: 12px;
+    color: #717171;
+  }
+  
+  .guest-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .guest-controls button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 18px;
+    background: none;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .guest-controls button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  

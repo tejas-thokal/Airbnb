@@ -1,0 +1,95 @@
+*{
+  text-decoration: none;
+}
+
+.slider-container {
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.slider-container h2 {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.location{
+  color: black;
+}
+
+.slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.flat-card {
+  flex: 0 0 auto;
+  width: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.flat-card:hover {
+  transform: scale(1.03);
+}
+
+.flat-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.flat-info {
+  padding: 12px;
+}
+
+.flat-info .location {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.flat-info .price {
+  color: #555;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.flat-image-wrapper {
+  position: relative;
+}
+
+.guest-fav-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #f8f6ef;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  z-index: 1;
+  color:rgb(54, 54, 54);
+}
+
+.heart-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  padding: 4px 6px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
