@@ -2,14 +2,18 @@ import { useLocation } from "react-router-dom";
 import "./WishlistPropertyDetail.css";
 import MapView from "./MapView";
 
-export default function WishlistPropertyDetail() {
-  const { state } = useLocation();
-  const { selectedFlat, allFlats } = state || {};
+export default function WishlistPropertyDetail({ selectedFlat: propSelected, allFlats: propFlats }) {
+  const location = useLocation();
+  const state = location.state || {};
+
+  // Prefer props over router state
+  const selectedFlat = propSelected || state.selectedFlat;
+  const allFlats = propFlats || state.allFlats;
 
   if (!selectedFlat || !allFlats) return <p>No data available.</p>;
+
   console.log("selectedFlat:", selectedFlat);
   console.log("allFlats:", allFlats);
-
 
   return (
     <div className="property-detail-container">
