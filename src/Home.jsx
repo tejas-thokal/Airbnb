@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import MainContainer from "./MainContainer";
 import React, { useState } from "react";
 import LoginModel from "./LoginModel";
-import SignupModal from "./SignupModel"; // ⬅️ Import this too if needed
+import SignupModal from "./SignupModel";
 
 export default function Home({user, setUser}) {
   const [showLogin, setShowLogin] = useState(false);
@@ -28,7 +28,7 @@ export default function Home({user, setUser}) {
           onContinue={(userPhone) => {
             setPhone(userPhone);
             setShowLogin(false);
-            setShowSignup(true); // ⬅️ Open signup modal after login
+            setShowSignup(true);
           }}
         />
       )}
