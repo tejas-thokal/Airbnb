@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./SignupModal.css";
+import baseURL from './api';
 
 export default function SignupModal({ onClose, phone }) {
   const [firstName, setFirstName] = useState('');
@@ -38,7 +39,7 @@ export default function SignupModal({ onClose, phone }) {
       return;
     }
   try {
-    const response = await fetch('http://localhost:5000/signup', {
+    const response = await fetch(`${baseURL}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './LoginModel.css';
+import baseURL from './api';
 
 export default function LoginModel({ onClose,  onContinue  }) {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -18,7 +19,7 @@ export default function LoginModel({ onClose,  onContinue  }) {
     }
 
   try {
-    const response = await fetch("http://localhost:5000/register", {
+    const response = await fetch(`${baseURL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
