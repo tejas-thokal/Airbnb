@@ -7,6 +7,8 @@ export default function LoginModel({ onClose,  onContinue  }) {
 
   const handleSubmit = async () => {
 
+    console.log("▶️ Submit clicked");
+    console.log("➡️ Sending to:", `${baseURL}/register`);
     if(phoneNumber.length !=10){
       alert("Please enter a Valid Phone Number");
       return;
@@ -18,27 +20,34 @@ export default function LoginModel({ onClose,  onContinue  }) {
       return;
     }
 
-  try {
-    const response = await fetch(`${baseURL}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ phone: phoneNumber })
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert("✅ Phone number saved: " + data.message);
-      onContinue(phoneNumber); // ⬅️ This will open the Signup Modal
-    } else {
-      alert("❌ Error: " + data.message);
-    }
-  } catch (error) {
-    console.error("Fetch error:", error);
-    alert("❌ Failed to connect to server.");
-  }
+    try {
+      const response = await fetch(`${baseURL}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ phone: phoneNumber })
+      });
+    
+      let data = {};
+      try {
+        const text = await response.text();
+        data = text ? JSON.parse(text) : {}; 
+ // ✅ wrapped in try-catch
+      } catch (jsonErr) {
+        console.warn("⚠️ Response was not JSON:", jsonErr);
+      }
+    
+      if (response.ok) {
+        alert("✅ Phone number saved: " + (data.message || "Success"));
+        onContinue(phoneNumber); // ⬅️ Proceed to signup
+      } else {
+        alert("❌ Error: " + (data.message || "Unknown error"));
+      }
+    } catch (error) {
+      console.error("Fetch error:", error);
+      alert("❌ Failed to connect to server.");
+    }    
 };
 
 
