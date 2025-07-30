@@ -8,7 +8,10 @@ export default function LoginModel({ onClose,  onContinue  }) {
   const handleSubmit = async () => {
 
     console.log("▶️ Submit clicked");
+    console.log("➡️ baseURL:", baseURL);
     console.log("➡️ Sending to:", `${baseURL}/register`);
+    console.log("➡️ Phone number:", phoneNumber);
+    
     if(phoneNumber.length !=10){
       alert("Please enter a Valid Phone Number");
       return;
@@ -21,6 +24,7 @@ export default function LoginModel({ onClose,  onContinue  }) {
     }
 
     try {
+      console.log("🔄 Making fetch request...");
       const response = await fetch(`${baseURL}/register`, {
         method: "POST",
         headers: {
@@ -28,25 +32,32 @@ export default function LoginModel({ onClose,  onContinue  }) {
         },
         body: JSON.stringify({ phone: phoneNumber })
       });
+      
+      console.log("📡 Response status:", response.status);
+      console.log("📡 Response headers:", response.headers);
     
       let data = {};
+      let text = '';
       try {
-        const text = await response.text();
+        text = await response.text();
+        console.log("📄 Response text:", text);
         data = text ? JSON.parse(text) : {}; 
- // ✅ wrapped in try-catch
       } catch (jsonErr) {
         console.warn("⚠️ Response was not JSON:", jsonErr);
+        console.warn("⚠️ Raw response:", text);
       }
     
       if (response.ok) {
+        console.log("✅ Success response:", data);
         alert("✅ Phone number saved: " + (data.message || "Success"));
         onContinue(phoneNumber); // ⬅️ Proceed to signup
       } else {
-        alert("❌ Error: " + (data.message || "Unknown error"));
+        console.error("❌ Error response:", data);
+        alert("❌ Error: " + (data.message || `HTTP ${response.status}`));
       }
     } catch (error) {
-      console.error("Fetch error:", error);
-      alert("❌ Failed to connect to server.");
+      console.error("🚨 Fetch error:", error);
+      alert("❌ Failed to connect to server: " + error.message);
     }    
 };
 
