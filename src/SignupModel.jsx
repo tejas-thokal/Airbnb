@@ -45,7 +45,7 @@ export default function SignupModal({ onClose, phone }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        phone,
+        phonenumber,
         firstName,
         lastName,
         dob,
@@ -60,7 +60,7 @@ export default function SignupModal({ onClose, phone }) {
 
       const userData = {
         firstName,
-        phone,
+        phonenumber,
         email
       };
 
