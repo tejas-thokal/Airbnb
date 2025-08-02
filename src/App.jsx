@@ -18,6 +18,7 @@ function App() {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    console.log(user);
   }, []);
   return (
     <>

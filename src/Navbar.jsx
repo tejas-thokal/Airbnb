@@ -9,6 +9,8 @@ import { useState } from "react";
 export default function Navbar({ onLoginClick, isLoggedIn, userFirstName, setUser }){
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [showMobileSearchModal, setShowMobileSearchModal] = useState(false);
+    console.log(userFirstName);
+    console.log("isLoggedIn:", isLoggedIn);
     const [destination, setDestination] = useState('');
     const [checkInDate,setCheckInDate] = useState('');
     const [checkOutDate,setCheckOutDate] = useState('');
