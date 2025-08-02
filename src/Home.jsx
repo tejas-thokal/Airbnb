@@ -11,7 +11,7 @@ export default function Home({user, setUser}) {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [phone, setPhone] = useState("");
-  const userFirstName = user?.firstName || "";
+  const userFirstName = user?.first_name || "";
   const isLoggedIn = !!userFirstName;
 
 
@@ -45,17 +45,7 @@ export default function Home({user, setUser}) {
 
 )}
 
-<button
-  onClick={() =>
-    setUser({
-      firstName: "Tejas",
-      phone: "9876543210",
-    })
-  }
-  className="m-4 p-2 bg-green-500 text-white rounded"
->
-  Simulate Login
-</button>
+
 
       <MainContainer />
       <Footer />
