@@ -45,6 +45,17 @@ export default function Home({user, setUser}) {
 
 )}
 
+<button
+  onClick={() =>
+    setUser({
+      firstName: "Tejas",
+      phone: "9876543210",
+    })
+  }
+  className="m-4 p-2 bg-green-500 text-white rounded"
+>
+  Simulate Login
+</button>
 
       <MainContainer />
       <Footer />
