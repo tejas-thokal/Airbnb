@@ -14,11 +14,10 @@ function App() {
    const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("first_name");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
-    console.log(user);
   }, []);
   return (
     <>
