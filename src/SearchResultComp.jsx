@@ -3,11 +3,12 @@ import SearchResults from "./SearchResults";
 import Footer from "./Footer";
 
 const SearchResultComp = ({user,setUser}) =>{
-    const userFirstName = user?.firstName || "";
+    const userFirstName = user?.first_name || "";
     const isLoggedIn = !!userFirstName;
     return(
         <div>
-            <Navbar isLoggedIn={isLoggedIn} userFirstName={userFirstName} setUser={setUser}/>
+            <Navbar onLoginClick={() => setShowLogin(true)}  isLoggedIn={isLoggedIn}
+              userFirstName={userFirstName} setUser={setUser} />
             <SearchResults/>
             <Footer/>
         </div>

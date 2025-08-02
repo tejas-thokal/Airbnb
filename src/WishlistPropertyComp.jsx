@@ -8,7 +8,7 @@ import { mumbaiFlats } from "./Mumbai";
 export default function WishlistPropertyComp({ user, setUser }) {
   const { flatId } = useParams();
   const location = useLocation();
-  const userFirstName = user?.firstName || "";
+  const userFirstName = user?.first_name || "";
   const isLoggedIn = !!userFirstName;
 
   const state = location.state || {};
@@ -23,7 +23,8 @@ export default function WishlistPropertyComp({ user, setUser }) {
 
   return (
     <>
-      <Navbar isLoggedIn={isLoggedIn} userFirstName={userFirstName} setUser={setUser} />
+      <Navbar onLoginClick={() => setShowLogin(true)}  isLoggedIn={isLoggedIn}
+        userFirstName={userFirstName} setUser={setUser} />
       <WishlistPropertyDetail selectedFlat={selectedFlat} allFlats={allFlats} />
       <Footer />
     </>
