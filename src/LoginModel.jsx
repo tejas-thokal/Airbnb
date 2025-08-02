@@ -9,7 +9,7 @@ export default function LoginModel({ onClose,  onContinue  }) {
 
     console.log("▶️ Submit clicked");
     console.log("➡️ baseURL:", baseURL);
-    console.log("➡️ Sending to:", `${baseURL}/register`);
+    console.log("➡️ Sending to:", `${baseURL}/check-phone`);
     console.log("➡️ Phone number:", phoneNumber);
     
     if(phoneNumber.length !=10){
