@@ -10,7 +10,8 @@ export default function PropertyDetails({ user, setUser }) {
   return (
     <>
       <div className="container" style={{ paddingTop: "5em" }}>
-        <Navbar isLoggedIn={isLoggedIn} userFirstName={userFirstName} setUser={setUser} />
+        <Navbar onLoginClick={() => setShowLogin(true)}  isLoggedIn={isLoggedIn}
+          userFirstName={userFirstName} setUser={setUser} />
         <PropertyinDetails />
         <HostDetail />
         <Footer />
