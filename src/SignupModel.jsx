@@ -9,53 +9,59 @@ export default function SignupModal({ onClose, phone }) {
   const [email, setEmail] = useState('');
 
   const handleSignup = async () => {
-  const phone = localStorage.getItem("phoneNumber"); // Assuming it's saved earlier
+    const phoneNumber = phone || localStorage.getItem("phoneNumber");
 
-  const signupData = {
-    phonenumber: phone,
-    firstName,
-    lastName,
-    dob,
-    email,
+    const signupData = {
+      phonenumber: phoneNumber,
+      firstName,
+      lastName,
+      dob,
+      email,
+    };
+
+    console.log("Sending signup data:", signupData);
+
+    try {
+      const response = await fetch(`${baseURL}/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(signupData)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Signup failed");
+      }
+
+      const result = await response.json();
+      console.log("✅ Signup success:", result);
+
+      const userData = {
+        firstName,
+        phonenumber: phoneNumber,
+        email
+      };
+
+      onClose(userData);
+      alert("✅ Signup successful!");
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("❌ " + error.message);
+    }
   };
 
-  // ✅ Add this log here
-  console.log("Sending signup data:", signupData);
-
-  try {
-    const response = await fetch("https://airbnb-backend-rbln.onrender.com/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(signupData)
-    });
-
-    if (!response.ok) {
-      throw new Error("Signup failed");
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
     }
-
-    const result = await response.json();
-    console.log("✅ Signup success:", result);
-
-  } catch (error) {
-    console.error("Signup error:", error);
-  }
-};
-
-
-const calculateAge = (dob) => {
-  const birthDate = new Date(dob);
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
-};
-
-
+    return age;
+  };
 
   return (
     <div className="modal-backdrop">
