@@ -13,8 +13,8 @@ export default function SignupModal({ onClose, phone }) {
 
     const signupData = {
       phonenumber: phoneNumber,
-      firstName,
-      lastName,
+      first_name: firstName,
+      last_name: lastName,
       dob,
       email,
     };
@@ -39,7 +39,7 @@ export default function SignupModal({ onClose, phone }) {
       console.log("✅ Signup success:", result);
 
       const userData = {
-        firstName,
+        first_name: firstName,
         phonenumber: phoneNumber,
         email
       };
