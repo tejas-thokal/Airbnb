@@ -15,9 +15,8 @@ function App() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    console.log("Restored user from localStorage:", storedUser);
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // restore user
+      setUser(JSON.parse(storedUser));
     }
   }, []);
   return (

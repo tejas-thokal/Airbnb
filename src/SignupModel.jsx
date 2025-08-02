@@ -9,48 +9,52 @@ export default function SignupModal({ onClose, phone }) {
   const [email, setEmail] = useState('');
 
   const handleSignup = async () => {
-    const phoneNumber = phone || localStorage.getItem("phoneNumber");
+  const phoneNumber = phone || localStorage.getItem("phoneNumber");
 
-    const signupData = {
-      phonenumber: phoneNumber,
+  const signupData = {
+    phonenumber: phoneNumber,
+    first_name: firstName,
+    last_name: lastName,
+    dob,
+    email,
+  };
+
+  console.log("Sending signup data:", signupData);
+
+  try {
+    const response = await fetch(`${baseURL}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(signupData)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Signup failed");
+    }
+
+    const result = await response.json();
+    console.log("✅ Signup success:", result);
+
+    const userData = {
       first_name: firstName,
       last_name: lastName,
-      dob,
-      email,
+      phonenumber: phoneNumber,
+      email
     };
 
-    console.log("Sending signup data:", signupData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    onClose(userData); // ✅ only once
 
-    try {
-      const response = await fetch(`${baseURL}/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(signupData)
-      });
+    alert("✅ Signup successful!");
+  } catch (error) {
+    console.error("Signup error:", error);
+    alert("❌ " + error.message);
+  }
+};
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Signup failed");
-      }
-
-      const result = await response.json();
-      console.log("✅ Signup success:", result);
-
-      const userData = {
-        first_name: firstName,
-        phonenumber: phoneNumber,
-        email
-      };
-
-      onClose(userData);
-      alert("✅ Signup successful!");
-    } catch (error) {
-      console.error("Signup error:", error);
-      alert("❌ " + error.message);
-    }
-  };
 
   const calculateAge = (dob) => {
     const birthDate = new Date(dob);
