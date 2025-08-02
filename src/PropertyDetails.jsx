@@ -4,7 +4,7 @@ import PropertyinDetails from "./PropertyinDetails";
 import HostDetail from "./HostDetail";
 
 export default function PropertyDetails({ user, setUser }) {
-  const userFirstName = user?.firstName || "";
+  const userFirstName = user?.first_name || "";
   const isLoggedIn = !!userFirstName;
 
   return (
