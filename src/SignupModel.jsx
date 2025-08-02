@@ -53,6 +53,9 @@ export default function SignupModal({ onClose, phone }) {
       })
     });
 
+    console.log("Incoming signup data:", req.body);
+
+
     const data = await response.json();
 
     if (response.ok) {
