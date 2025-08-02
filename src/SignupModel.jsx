@@ -9,73 +9,40 @@ export default function SignupModal({ onClose, phone }) {
   const [email, setEmail] = useState('');
 
   const handleSignup = async () => {
+  const phone = localStorage.getItem("phoneNumber"); // Assuming it's saved earlier
 
-    const nameRegex = /^[A-Za-z]+$/;
+  const signupData = {
+    phonenumber: phone,
+    firstName,
+    lastName,
+    dob,
+    email,
+  };
 
-    if (!firstName.trim() || !nameRegex.test(firstName)) {
-      alert("❌ First name should only contain letters.");
-      return;
-    }
-  
-    if (!lastName.trim() || !nameRegex.test(lastName)) {
-      alert("❌ Last name should only contain letters.");
-      return;
-    }
-  
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-    if (!email.trim() || !emailRegex.test(email)) {
-      alert("❌ Please enter a valid email address.");
-      return;
-    }
-    if (!dob) {
-      alert("❌ Please enter your date of birth.");
-      return;
-    }
-  
-    const age = calculateAge(dob);
-    if (age < 18) {
-      alert("❌ You must be at least 18 years old to sign up.");
-      return;
-    }
+  // ✅ Add this log here
+  console.log("Sending signup data:", signupData);
+
   try {
-    const response = await fetch(`${baseURL}/signup`, {
-      method: 'POST',
+    const response = await fetch("https://airbnb-backend-rbln.onrender.com/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        phonenumber,
-        firstName,
-        lastName,
-        dob,
-        email
-      })
+      body: JSON.stringify(signupData)
     });
 
-    console.log("Incoming signup data:", req.body);
-
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert('✅ Signup complete!');
-
-      const userData = {
-        firstName,
-        phonenumber,
-        email
-      };
-
-      onClose(userData); // ✅ send data back to App.js to set state + localStorage
-    } else {
-      alert('❌ ' + data.message);
+    if (!response.ok) {
+      throw new Error("Signup failed");
     }
+
+    const result = await response.json();
+    console.log("✅ Signup success:", result);
+
   } catch (error) {
-    console.error('Signup error:', error);
-    alert('❌ Failed to connect to server.');
+    console.error("Signup error:", error);
   }
 };
+
 
 const calculateAge = (dob) => {
   const birthDate = new Date(dob);
