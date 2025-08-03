@@ -37,6 +37,7 @@ export default function PropertyinDetails() {
   const [showModal, setShowModal] = useState(false);
   const [wishlists, setWishlists] = useState([]);
   const [isSharing, setIsSharing] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   // If no property data is found, show error message
   if (!propertyData) {
@@ -71,6 +72,18 @@ export default function PropertyinDetails() {
       }
     }
   }, [id, title, imgUrl]);
+  
+  // Reset image slider to first image when component mounts or property changes
+  useEffect(() => {
+    setActiveImageIndex(0);
+    // Reset scroll position of image grid if it exists
+    if (window.imgGridRef) {
+      window.imgGridRef.scrollTo({
+        left: 0,
+        behavior: 'auto'
+      });
+    }
+  }, [id]);
 
 
   const handleShare = (id) => {
@@ -210,16 +223,85 @@ export default function PropertyinDetails() {
         </div>
       </div>
 
-      <div className="img-grid">
+      <div 
+        className="img-grid" 
+        onScroll={(e) => {
+          // Calculate which image is currently in view based on scroll position
+          const scrollPosition = e.currentTarget.scrollLeft;
+          const imageWidth = e.currentTarget.offsetWidth;
+          const newIndex = Math.round(scrollPosition / imageWidth);
+          if (newIndex !== activeImageIndex) {
+            setActiveImageIndex(newIndex);
+          }
+        }}
+        ref={(ref) => {
+          // Store the ref for scrolling functionality
+          if (ref) {
+            window.imgGridRef = ref;
+          }
+        }}
+      >
         <div className="main-image">
           <img src={imgUrl} alt={title} />
         </div>
         <div className="side-images">
           <img src={imgUrl2} alt={title} />
-          <img className="right-round-Edge-top" src={imgUrl3} alt={title} />
+          <img src={imgUrl3} alt={title} />
           <img src={imgUrl4} alt={title} />
-          <img className="right-round-Edge-bottom" src={imgUrl5} alt={title} />
+          <img src={imgUrl5} alt={title} />
         </div>
+        
+        {/* Pagination indicators - only visible on mobile */}
+        <div className="img-pagination">
+          {[imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5].map((_, index) => (
+            <div 
+              key={index} 
+              className={`img-pagination-dot ${index === activeImageIndex ? 'active' : ''}`}
+            />
+          ))}
+        </div>
+        
+        {/* Image counter - only visible on mobile */}
+        <div className="img-counter" style={{display:"none"}}>
+          {activeImageIndex + 1}/{[imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5].filter(Boolean).length}
+        </div>
+        
+        {/* Navigation buttons - only visible on mobile */}
+        <button style={{display:"none"}}
+          className="img-nav-btn prev" 
+          onClick={() => {
+            const imgGrid = window.imgGridRef;
+            if (imgGrid && activeImageIndex > 0) {
+              const newIndex = activeImageIndex - 1;
+              imgGrid.scrollTo({
+                left: newIndex * imgGrid.offsetWidth,
+                behavior: 'smooth'
+              });
+              setActiveImageIndex(newIndex);
+            }
+          }}
+        >
+          <i className="fa-solid fa-chevron-left"></i>
+        </button>
+        
+        <button 
+        style={{display:"none"}}
+          className="img-nav-btn next" 
+          onClick={() => {
+            const imgGrid = window.imgGridRef;
+            const totalImages = [imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5].filter(Boolean).length;
+            if (imgGrid && activeImageIndex < totalImages - 1) {
+              const newIndex = activeImageIndex + 1;
+              imgGrid.scrollTo({
+                left: newIndex * imgGrid.offsetWidth,
+                behavior: 'smooth'
+              });
+              setActiveImageIndex(newIndex);
+            }
+          }}
+        >
+          <i className="fa-solid fa-chevron-right"></i>
+        </button>
       </div>
 
       {/* Two-column layout for content below images */}

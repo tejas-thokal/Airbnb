@@ -147,8 +147,9 @@
     width: 100%;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: none;
-    border: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #ddd;
+    margin-top: 10px;
   }
   
   .rare-find {
