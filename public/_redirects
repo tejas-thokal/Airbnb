@@ -1,0 +1,9 @@
+# Handle client-side routing
+/*    /index.html   200
+
+# Handle specific routes
+/property/*    /index.html   200
+/airbnb/wishlist    /index.html   200
+/wishlist/*    /index.html   200
+/wishlist-property/*    /index.html   200
+/search    /index.html   200 
