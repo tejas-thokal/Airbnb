@@ -43,7 +43,8 @@ export default function PropertyinDetails() {
     const shareUrl = `${window.location.origin}/Property/${id}`;
     navigator.clipboard.writeText(shareUrl).then(() => {
       alert("Link copied to clipboard!");
-    });
+    })
+    .catch((err) => console.error("Failed to copy: ", err));
   };
 
   const saveToWishlist = (wishlistName) => {
