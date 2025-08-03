@@ -131,10 +131,17 @@ export default function PropertyinDetails() {
   const stored = JSON.parse(localStorage.getItem("wishlists")) || [];
   const index = stored.findIndex((w) => w.name === wishlistName);
 
+  // Get all properties from the original flat object
   const newFlat = {
     id,
     title,
-    images: [imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5]
+    location: propertyData.location,
+    lat: propertyData.lat,
+    lng: propertyData.lng,
+    price: propertyData.price,
+    rating: propertyData.rating,
+    images: [imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5],
+    imgUrl: imgUrl // Keep imgUrl for backward compatibility
   };
 
   if (index !== -1) {

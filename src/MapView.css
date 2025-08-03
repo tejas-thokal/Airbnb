@@ -2,4 +2,33 @@
   width: 100%;
   height: 100%;
   border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Make sure Leaflet container is responsive */
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1;
+}
+
+/* Improve marker popup styling */
+.leaflet-popup-content {
+  margin: 10px;
+  line-height: 1.5;
+  font-family: inherit;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .map-container {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    border-radius: 6px;
+  }
 }
