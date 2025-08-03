@@ -166,7 +166,7 @@ export default function Mumbai(){
     <div className="slider">
       {mumbaiFlats.map((flat) => (
           <div key={flat.id} className="flat-card">
-            <Link to={`Property/${flat.id}`} state={flat}>
+            <Link to={`property/${flat.id}`} state={flat}>
               <div className="flat-image-wrapper">
                 <img src={flat.imgUrl} alt={flat.location} />
                 {flat.isGuestFavourite && (

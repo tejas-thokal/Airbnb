@@ -170,7 +170,7 @@ export default function Flats(){
         <div className="slider">
           {puneFlats.map((flat) => (
               <div key={flat.id} className="flat-card">
-                <Link to={`Property/${flat.id}`} state={{
+                <Link to={`property/${flat.id}`} state={{
                     ...flat,
                     checkInDate,
                     checkOutDate,
