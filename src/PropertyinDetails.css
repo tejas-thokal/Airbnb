@@ -24,6 +24,7 @@
   color: #222;
   flex: 1;
   margin-right: 20px;
+  margin-top: 25px;
 }
 
 .img-grid {
@@ -644,38 +645,90 @@
   .img-grid {
     margin-left: 0;
     width: 100vw;
+    position: relative;
   }
   
   .main-image,
+  .side-images {
+    width: 100vw;
+  }
+  
+  .main-image img,
   .side-images img {
     width: 100vw;
     min-width: 100vw;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0;
   }
   
-  .main-image img {
-    height: 250px;
+  .mobile-images-slider {
+    display: flex;
+    width: 100vw;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
   
-  .side-images img {
-    height: 250px; /* Same height as main image */
+  .mobile-images-slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  .mobile-images-slider img {
+    height: 300px;
+    width: 100vw;
+    min-width: 100vw;
+    object-fit: cover;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    border-radius: 0;
   }
   
   .img-counter {
-    font-size: 10px;
-    padding: 3px 6px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #222;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 12px;
+    z-index: 2;
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
   
   .img-nav-btn {
-    width: 24px;
-    height: 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .img-nav-btn i {
+    font-size: 14px;
+    color: #222;
   }
   
   .img-nav-btn.prev {
-    left: 5px;
+    left: 10px;
   }
   
   .img-nav-btn.next {
-    right: 5px;
+    right: 10px;
   }
   
   .content-layout {

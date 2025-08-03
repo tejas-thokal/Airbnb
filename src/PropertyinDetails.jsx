@@ -32,12 +32,35 @@ export default function PropertyinDetails() {
 
   const propertyData = getPropertyData();
   const { title, imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5, id } = propertyData || {};
+  
+  // Create a property object with an images array for consistent handling
+  const property = {
+    ...propertyData,
+    images: [imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5].filter(Boolean)
+  };
 
   const [saved, setSaved] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [wishlists, setWishlists] = useState([]);
   const [isSharing, setIsSharing] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Check if device is mobile on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // If no property data is found, show error message
   if (!propertyData) {
@@ -241,15 +264,37 @@ export default function PropertyinDetails() {
           }
         }}
       >
-        <div className="main-image">
-          <img src={imgUrl} alt={title} />
-        </div>
-        <div className="side-images">
-          <img src={imgUrl2} alt={title} />
-          <img src={imgUrl3} alt={title} />
-          <img src={imgUrl4} alt={title} />
-          <img src={imgUrl5} alt={title} />
-        </div>
+        {isMobile ? (
+          // Mobile view - all images in a single horizontal slider with same size
+          <div 
+             className="mobile-images-slider"
+             onScroll={(e) => {
+               // Track scroll in mobile view
+               const scrollPosition = e.currentTarget.scrollLeft;
+               const imageWidth = e.currentTarget.offsetWidth;
+               const newIndex = Math.round(scrollPosition / imageWidth);
+               if (newIndex !== activeImageIndex) {
+                 setActiveImageIndex(newIndex);
+               }
+             }}
+           >
+             {property.images.map((image, index) => (
+               <img key={index} src={image} alt={`${title} - Image ${index + 1}`} />
+             ))}
+           </div>
+        ) : (
+          // Desktop view - original layout
+          <>
+             <div className="main-image">
+               <img src={property.images[0]} alt={`${title} - Main Image`} />
+             </div>
+             <div className="side-images">
+               {property.images.slice(1).map((image, index) => (
+                 <img key={index} src={image} alt={`${title} - Image ${index + 2}`} />
+               ))}
+             </div>
+           </>
+        )}
         
         {/* Pagination indicators - only visible on mobile */}
         <div className="img-pagination">
@@ -262,21 +307,36 @@ export default function PropertyinDetails() {
         </div>
         
         {/* Image counter - only visible on mobile */}
-        <div className="img-counter" style={{display:"none"}}>
-          {activeImageIndex + 1}/{[imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5].filter(Boolean).length}
+        <div style={{display:"none"}} className="img-counter">
+          {activeImageIndex + 1}/{property.images.length}
         </div>
         
         {/* Navigation buttons - only visible on mobile */}
-        <button style={{display:"none"}}
+        <button
+        style={{display:"none"}}
           className="img-nav-btn prev" 
           onClick={() => {
-            const imgGrid = window.imgGridRef;
-            if (imgGrid && activeImageIndex > 0) {
+            if (activeImageIndex > 0) {
               const newIndex = activeImageIndex - 1;
-              imgGrid.scrollTo({
-                left: newIndex * imgGrid.offsetWidth,
-                behavior: 'smooth'
-              });
+              if (isMobile) {
+                // Mobile view - scroll the mobile-images-slider container
+                const mobileSlider = document.querySelector('.mobile-images-slider');
+                if (mobileSlider) {
+                  mobileSlider.scrollTo({
+                    left: newIndex * mobileSlider.offsetWidth,
+                    behavior: 'smooth'
+                  });
+                }
+              } else {
+                // Desktop view - scroll the img-grid container
+                const mainGrid = window.imgGridRef;
+                if (mainGrid) {
+                  mainGrid.scrollTo({
+                    left: newIndex * mainGrid.offsetWidth,
+                    behavior: 'smooth'
+                  });
+                }
+              }
               setActiveImageIndex(newIndex);
             }
           }}
@@ -284,18 +344,32 @@ export default function PropertyinDetails() {
           <i className="fa-solid fa-chevron-left"></i>
         </button>
         
-        <button 
+        <button
         style={{display:"none"}}
           className="img-nav-btn next" 
           onClick={() => {
-            const imgGrid = window.imgGridRef;
-            const totalImages = [imgUrl, imgUrl2, imgUrl3, imgUrl4, imgUrl5].filter(Boolean).length;
-            if (imgGrid && activeImageIndex < totalImages - 1) {
+            const totalImages = property.images.length;
+            if (activeImageIndex < totalImages - 1) {
               const newIndex = activeImageIndex + 1;
-              imgGrid.scrollTo({
-                left: newIndex * imgGrid.offsetWidth,
-                behavior: 'smooth'
-              });
+              if (isMobile) {
+                // Mobile view - scroll the mobile-images-slider container
+                const mobileSlider = document.querySelector('.mobile-images-slider');
+                if (mobileSlider) {
+                  mobileSlider.scrollTo({
+                    left: newIndex * mobileSlider.offsetWidth,
+                    behavior: 'smooth'
+                  });
+                }
+              } else {
+                // Desktop view - scroll the img-grid container
+                const mainGrid = window.imgGridRef;
+                if (mainGrid) {
+                  mainGrid.scrollTo({
+                    left: newIndex * mainGrid.offsetWidth,
+                    behavior: 'smooth'
+                  });
+                }
+              }
               setActiveImageIndex(newIndex);
             }
           }}
