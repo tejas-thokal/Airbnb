@@ -15,14 +15,14 @@ export default function BookingCard({ price, checkInDate, checkOutDate, guests }
   };
   
   const nights = calcNights();
-  const cleanPrice = Number(price.replace(/[₹,]/g, ""));
+  const cleanPrice = Number(price?.replace(/[₹,]/g, "") || "5000");
   const actualPrice = cleanPrice * nights;
   
   const discountedPrice = Math.floor(actualPrice * 0.62); // approx discount shown in image
 
   return (
     <div className="booking-card">
-      <div className="rare-find">💎 Rare find! This place is usually booked</div>
+      <div className="rare-find">Rare find! This place is usually booked</div>
 
       <div className="price-line">
         <span className="original-price">₹{actualPrice.toLocaleString()}</span>
@@ -32,12 +32,14 @@ export default function BookingCard({ price, checkInDate, checkOutDate, guests }
 
       <div className="booking-inputs">
         <div className="date-input">
-          <label>CHECK-IN</label>
-          <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} />
-        </div>
-        <div className="date-input">
-          <label>CHECKOUT</label>
-          <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} />
+          <div>
+            <label>CHECK-IN</label>
+            <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} />
+          </div>
+          <div>
+            <label>CHECKOUT</label>
+            <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} />
+          </div>
         </div>
         <div className="guests-input">
             <label>GUESTS</label>

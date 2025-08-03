@@ -167,7 +167,8 @@ export default function PropertyinDetails() {
   };
 
   return (
-    <div className="property">
+    <div className="property-container">
+      {/* Full-width title and images */}
       <div className="title">
         <h1>{title}</h1>
         <div className="flat-actions">
@@ -197,15 +198,77 @@ export default function PropertyinDetails() {
         </div>
       </div>
 
-      <div className="booking-section">
-      <BookingCard
-        price={propertyData?.price}
-        checkInDate={checkInDate}
-        checkOutDate={checkOutDate}
-        guests={guests}
-      />
-      </div>
+      {/* Two-column layout for content below images */}
+      <div className="content-layout">
+        {/* Left Column - Property Details */}
+        <div className="property-details">
+          {/* Guest Favorite Section */}
+          <div className="guest-favorite-section">
+            <div className="guest-favorite-badge">
+              <i className="fa-solid fa-crown"></i>
+              <span>Guest favourite</span>
+            </div>
+            <p className="guest-favorite-text">One of the most loved homes on Airbnb, according to guests</p>
+            <div className="rating-section">
+              <span className="rating">4.91</span>
+              <div className="stars">
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
+              </div>
+              <span className="reviews">129 Reviews</span>
+            </div>
+          </div>
 
+          {/* Host Information */}
+          <div className="host-section">
+            <div className="host-info">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Host" className="host-image" />
+              <div className="host-details">
+                <h3>Hosted by Ranjan</h3>
+                <p>Superhost · 1 year hosting</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Amenities Section */}
+          <div className="amenities-section">
+            <div className="amenity-item">
+              <i className="fa-solid fa-fan"></i>
+              <div className="amenity-content">
+                <h4>Designed for staying cool</h4>
+                <p>Beat the heat with the A/C and ceiling fan.</p>
+              </div>
+            </div>
+            <div className="amenity-item">
+              <i className="fa-solid fa-fire"></i>
+              <div className="amenity-content">
+                <h4>Outdoor entertainment</h4>
+                <p>The pool, alfresco dining and BBQ area are great for summer trips.</p>
+              </div>
+            </div>
+            <div className="amenity-item">
+              <i className="fa-solid fa-door-open"></i>
+              <div className="amenity-content">
+                <h4>Self check-in</h4>
+                <p>Check yourself in with the keypad.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column - Booking Card */}
+        <div className="booking-section">
+          <BookingCard
+            price={propertyData?.price}
+            checkInDate={checkInDate}
+            checkOutDate={checkOutDate}
+            guests={guests}
+          />
+        </div>
+      </div>
 
       {/* Modal render */}
       {showModal && (
