@@ -13,16 +13,34 @@ import "./MapView.css";
 // });
 
 export default function MapView({ flats = [], highlightId = null }) {
-  const validFlats = flats.filter((flat) => flat.lat && flat.lng);
+  console.log("MapView received flats:", flats);
+  
+  // Check if flats is an array
+  if (!Array.isArray(flats)) {
+    console.error("flats is not an array:", flats);
+    return <div className="map-container">Location not available - Invalid data format</div>;
+  }
+  
+  const validFlats = flats.filter((flat) => {
+    const hasCoords = flat && flat.lat && flat.lng;
+    if (!hasCoords) {
+      console.log("Flat missing coordinates:", flat);
+    }
+    return hasCoords;
+  });
+  
+  console.log("Valid flats with coordinates:", validFlats);
 
   if (!validFlats.length) {
-    return <div className="map-container">Location not available</div>;
+    return <div className="map-container">Location not available - No valid coordinates</div>;
   }
 
   const highlightedFlat = validFlats.find((f) => f.id === highlightId);
   const center = highlightedFlat
     ? [highlightedFlat.lat, highlightedFlat.lng]
     : [validFlats[0].lat, validFlats[0].lng];
+  
+  console.log("Map center:", center);
 
   return (
     <div className="map-container">

@@ -132,6 +132,7 @@ export default function PropertyinDetails() {
   const index = stored.findIndex((w) => w.name === wishlistName);
 
   // Get all properties from the original flat object
+  // Ensure we have lat and lng coordinates
   const newFlat = {
     id,
     title,
@@ -144,19 +145,35 @@ export default function PropertyinDetails() {
     imgUrl: imgUrl // Keep imgUrl for backward compatibility
   };
 
+  // Log to verify coordinates are being saved
+  console.log("Saving flat with coordinates:", {
+    id: newFlat.id,
+    lat: newFlat.lat,
+    lng: newFlat.lng
+  });
+
   if (index !== -1) {
     const isAlreadySaved = stored[index].savedItems.some((item) => item.id === id);
     if (!isAlreadySaved) {
       stored[index].savedItems.push(newFlat);
+    } else {
+      // Update existing item to ensure it has coordinates
+      const itemIndex = stored[index].savedItems.findIndex(item => item.id === id);
+      if (itemIndex !== -1) {
+        stored[index].savedItems[itemIndex] = {
+          ...stored[index].savedItems[itemIndex],
+          ...newFlat
+        };
+      }
     }
 
-    // ✅ Add this if block to ensure existing wishlists also get `id`
+    // Ensure existing wishlists have an ID
     if (!stored[index].id) {
       stored[index].id = `wishlist-${Date.now()}`;
     }
   } else {
     stored.push({
-      id: `wishlist-${Date.now()}`, // ✅ assign unique id
+      id: `wishlist-${Date.now()}`,
       name: wishlistName,
       savedItems: [newFlat],
     });

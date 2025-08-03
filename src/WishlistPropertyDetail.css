@@ -59,6 +59,22 @@
   font-weight: 500;
 }
 
+.back-button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #ff385c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.back-button:hover {
+  background-color: #e31c5f;
+}
+
 .beds {
   margin-bottom: 12px;
 }
