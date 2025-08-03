@@ -289,27 +289,257 @@
 
 @media (max-width: 768px) {
   .property-container {
-    padding: 10px;
+    padding: 0;
+    max-width: 100%;
   }
   
   .title {
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    padding: 0 20px;
+    margin-bottom: 15px;
   }
   
   .title h1 {
     margin-right: 0;
+    font-size: 22px;
+    line-height: 1.3;
+  }
+  
+  .flat-actions {
+    align-self: flex-end;
+    gap: 15px;
+  }
+  
+  .flat-actions button {
+    padding: 8px 12px;
+    font-size: 13px;
   }
   
   .img-grid {
     flex-direction: column;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  
+  .main-image img {
+    height: 300px;
+    border-radius: 0;
   }
   
   .side-images {
     grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  
+  .side-images img {
+    height: 150px;
+    border-radius: 0;
+  }
+  
+  .right-round-Edge-top,
+  .right-round-Edge-bottom {
+    border-radius: 0;
   }
   
   .content-layout {
-    gap: 30px;
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+  /* Guest Favorite Section Mobile */
+  .guest-favorite-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .guest-favorite-badge {
+    margin-bottom: 6px;
+  }
+  
+  .guest-favorite-badge span {
+    font-size: 13px;
+  }
+  
+  .guest-favorite-text {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .rating-section {
+    gap: 6px;
+  }
+  
+  .rating {
+    font-size: 15px;
+  }
+  
+  .stars i {
+    font-size: 13px;
+  }
+  
+  .reviews {
+    font-size: 13px;
+  }
+  
+  /* Host Section Mobile */
+  .host-section {
+    margin-bottom: 25px;
+    padding: 15px 0;
+  }
+  
+  .host-image {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .host-details h3 {
+    font-size: 15px;
+  }
+  
+  .host-details p {
+    font-size: 13px;
+  }
+  
+  /* Amenities Section Mobile */
+  .amenities-section {
+    gap: 20px;
+  }
+  
+  .amenity-item {
+    padding: 15px 0;
+    gap: 12px;
+  }
+  
+  .amenity-item i {
+    font-size: 20px;
+  }
+  
+  .amenity-content h4 {
+    font-size: 15px;
+    margin-bottom: 3px;
+  }
+  
+  .amenity-content p {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  
+  /* Booking Section Mobile */
+  .booking-section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #ebebeb;
+    padding: 15px 20px;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .booking-card {
+    max-width: none;
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: none;
+    border: none;
+  }
+  
+  .rare-find {
+    font-size: 11px;
+    padding: 6px 10px;
+    margin-bottom: 12px;
+  }
+  
+  .price-line {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .discounted-price {
+    font-size: 18px;
+  }
+  
+  .original-price {
+    font-size: 14px;
+  }
+  
+  .booking-inputs {
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .date-input {
+    gap: 6px;
+  }
+  
+  input[type="date"], select {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .reserve-btn {
+    padding: 14px;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .note {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  
+  .report-link {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .property-container {
+    padding: 0;
+  }
+  
+  .title {
+    padding: 0 15px;
+  }
+  
+  .title h1 {
+    font-size: 20px;
+  }
+  
+  .main-image img {
+    height: 250px;
+  }
+  
+  .side-images img {
+    height: 120px;
+  }
+  
+  .content-layout {
+    padding: 0 15px;
+    gap: 15px;
+  }
+  
+  .guest-favorite-section {
+    padding: 12px;
+  }
+  
+  .host-section {
+    padding: 12px 0;
+  }
+  
+  .amenity-item {
+    padding: 12px 0;
+  }
+  
+  .booking-section {
+    padding: 12px 15px;
+  }
+  
+  .booking-card {
+    padding: 12px;
   }
 }

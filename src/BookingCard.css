@@ -139,3 +139,114 @@
     color: #222;
   }
   
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .booking-card {
+    position: static;
+    max-width: none;
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: none;
+    border: none;
+  }
+  
+  .rare-find {
+    font-size: 11px;
+    padding: 6px 10px;
+    margin-bottom: 12px;
+  }
+  
+  .price-line {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .discounted-price {
+    font-size: 18px;
+  }
+  
+  .original-price {
+    font-size: 14px;
+  }
+  
+  .booking-inputs {
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .date-input {
+    gap: 6px;
+  }
+  
+  input[type="date"], select {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .reserve-btn {
+    padding: 14px;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .note {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  
+  .report-link {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .booking-card {
+    padding: 12px;
+  }
+  
+  .rare-find {
+    font-size: 10px;
+    padding: 5px 8px;
+    margin-bottom: 10px;
+  }
+  
+  .price-line {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .discounted-price {
+    font-size: 16px;
+  }
+  
+  .original-price {
+    font-size: 13px;
+  }
+  
+  .booking-inputs {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  
+  input[type="date"], select {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  
+  .reserve-btn {
+    padding: 12px;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .note {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .report-link {
+    font-size: 10px;
+  }
+}
+  
