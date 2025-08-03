@@ -1,8 +1,10 @@
 .property-container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* Full-width title and images */
@@ -11,6 +13,8 @@
   justify-content: space-between;
   margin-bottom: 20px;
   align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .title h1 {
@@ -18,24 +22,31 @@
   font-weight: 600;
   margin: 0;
   color: #222;
+  flex: 1;
+  margin-right: 20px;
 }
 
 .img-grid {
   display: flex;
   gap: 8px;
   margin-bottom: 30px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Two-column layout for content below images */
 .content-layout {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 80px;
+  grid-template-columns: 1fr 380px;
+  gap: 60px;
   margin-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .property-details {
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 .property {
@@ -47,6 +58,7 @@
 .main-image {
   flex: 3;
   transition: transform 0.3s ease;
+  box-sizing: border-box;
 }
 
 .main-image img {
@@ -65,6 +77,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
+  box-sizing: border-box;
 }
 
 .right-round-Edge-top{
@@ -91,6 +104,7 @@
   display: flex;
   gap: 20px;
   margin-top: 8px;
+  flex-shrink: 0;
 }
 
 .flat-actions button {
@@ -101,6 +115,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s;
+  white-space: nowrap;
 }
 
 .flat-actions button:hover {
@@ -113,6 +128,7 @@
   padding: 20px;
   background: #f7f7f7;
   border-radius: 12px;
+  box-sizing: border-box;
 }
 
 .guest-favorite-badge {
@@ -223,6 +239,7 @@
   font-size: 24px;
   color: #222;
   margin-top: 2px;
+  flex-shrink: 0;
 }
 
 .amenity-content h4 {
@@ -244,9 +261,21 @@
   position: sticky;
   top: 20px;
   height: fit-content;
+  box-sizing: border-box;
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .property-container {
+    padding: 15px;
+  }
+  
+  .content-layout {
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+  }
+}
+
 @media (max-width: 1024px) {
   .content-layout {
     grid-template-columns: 1fr;
@@ -268,11 +297,19 @@
     gap: 10px;
   }
   
+  .title h1 {
+    margin-right: 0;
+  }
+  
   .img-grid {
     flex-direction: column;
   }
   
   .side-images {
     grid-template-columns: 1fr 1fr;
+  }
+  
+  .content-layout {
+    gap: 30px;
   }
 }
