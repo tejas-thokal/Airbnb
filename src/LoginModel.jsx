@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './LoginModel.css';
 import baseURL from './api';
+import { loginWithGoogle } from './auth';
 
 export default function LoginModel({ onClose, onContinue }) {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -86,7 +87,10 @@ export default function LoginModel({ onClose, onContinue }) {
 
         <div className="divider"><span>or</span></div>
 
-        <button className="login-btn google">
+        <button 
+          className="login-btn google" 
+          onClick={loginWithGoogle}
+        >
           <i className="fa-brands fa-google" style={{ color: "#DB4437" }}></i>
           Continue with Google
         </button>

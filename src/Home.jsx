@@ -3,11 +3,17 @@ import Flats from "./Flats";
 import Mumbai from "./Mumbai";
 import Footer from "./Footer";
 import MainContainer from "./MainContainer";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import LoginModel from "./LoginModel";
 import SignupModal from "./SignupModel";
+import { AuthContext } from './App';
 
-export default function Home({user, setUser}) {
+export default function Home({user: propUser, setUser: propSetUser}) {
+  // Use AuthContext if available, fallback to props
+  const authContext = useContext(AuthContext);
+  const user = authContext?.user || propUser;
+  const setUser = authContext?.setUser || propSetUser;
+  
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [phone, setPhone] = useState("");
@@ -37,9 +43,17 @@ export default function Home({user, setUser}) {
   <SignupModal
   phone={phone}
   onClose={(userData) => {
-    localStorage.setItem("user", JSON.stringify(userData)); // ✅ Save in localStorage
-    setUser(userData); // ✅ Update user in App.js
-    setShowSignup(false); // ✅ Close modal
+    if (userData) {
+      // Use the setUser function from context or props
+      if (typeof setUser === 'function') {
+        setUser(userData); // This will handle localStorage in App.jsx
+      } else {
+        // Fallback if setUser is not available
+        localStorage.setItem("user", JSON.stringify(userData));
+        console.warn('setUser function not available');
+      }
+    }
+    setShowSignup(false); // Close modal
   }}
 />
 

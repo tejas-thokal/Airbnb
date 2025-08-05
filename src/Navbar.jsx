@@ -1,12 +1,18 @@
 import "./Navbar.css"
-import { Link,useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useContext } from "react";
 import GuestSelector from "./GuestSelector";
 import places from "./places";
+import { logout } from './auth';
+import { AuthContext } from './App';
 
 import { useState } from "react";
 
-export default function Navbar({ onLoginClick, isLoggedIn, userFirstName, setUser }){
+export default function Navbar({ onLoginClick, isLoggedIn, userFirstName, setUser: propSetUser }){  
+    // Use AuthContext if available, fallback to props
+    const authContext = useContext(AuthContext);
+    const user = authContext?.user;
+    const setUser = authContext?.setUser || propSetUser;
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const [showMobileSearchModal, setShowMobileSearchModal] = useState(false);
     console.log(userFirstName);
@@ -72,13 +78,46 @@ export default function Navbar({ onLoginClick, isLoggedIn, userFirstName, setUse
 
 
 
-const handleLogout = () => {
-  localStorage.removeItem("user"); // ✅ Clear local storage
-  if (typeof setUser === "function") {
-    setUser(null); // ✅ Clear React state
-  }
-  setActiveOverlay(null); // ✅ Optionally close menu
-};
+const handleLogout = async () => {
+    console.log('handleLogout function called');
+    try {
+      // Call the logout function from auth.js
+      const result = await logout();
+      console.log('Logout result:', result);
+      
+      // Always clear local storage and reset user state regardless of server response
+      console.log('Clearing user data from localStorage');
+      localStorage.removeItem('user');
+      
+      // Close any open overlays
+      setActiveOverlay(null);
+      
+      // Update user state using the context or prop function
+      console.log('Setting user state to null');
+      if (typeof setUser === 'function') {
+        setUser(null);
+      } else {
+        console.error('setUser is not a function:', typeof setUser);
+      }
+      
+      // Force a page reload to ensure all state is reset
+      console.log('Reloading page to reset all state');
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error in handleLogout:', error);
+      
+      // Even if there's an error, still clear local data
+      console.log('Error occurred, but still clearing local data');
+      localStorage.removeItem('user');
+      
+      if (typeof setUser === 'function') {
+        setUser(null);
+      }
+      
+      // Force reload anyway
+      window.location.href = '/';
+    }
+  };
 
 const navigate = useNavigate();
 
