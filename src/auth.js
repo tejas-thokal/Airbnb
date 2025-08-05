@@ -77,15 +77,22 @@ export const logout = async () => {
 export const handleAuthRedirect = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const loginSuccess = urlParams.get('login');
+  const completeRegistration = urlParams.get('complete_registration');
+  const userId = urlParams.get('user_id');
+  
+  // Clean up URL parameters
+  const newUrl = window.location.pathname;
+  window.history.replaceState({}, document.title, newUrl);
   
   if (loginSuccess === 'success') {
-    // Remove the query parameter from URL
-    const newUrl = window.location.pathname;
-    window.history.replaceState({}, document.title, newUrl);
+    // Check if we need to complete registration (collect phone number)
+    if (completeRegistration === 'true') {
+      return { success: true, completeRegistration: true, userId };
+    }
     
-    // Return true to indicate successful login
-    return true;
+    // Regular successful login
+    return { success: true, completeRegistration: false };
   }
   
-  return false;
+  return { success: false };
 };
