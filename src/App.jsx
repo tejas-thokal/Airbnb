@@ -10,6 +10,7 @@ import SearchResultComp from "./SearchResultComp";
 import 'leaflet/dist/leaflet.css';
 import { checkAuth, handleAuthRedirect } from './auth';
 import GooglePhoneCollection from './GooglePhoneCollection';
+import ReservationPage from './ReservationPage';
 
 // Create a context for user authentication
 import { createContext } from 'react';
@@ -95,6 +96,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home user={user} setUser={updateUser} />} />
           <Route path="/property/:id" element={<PropertyDetails user={user} setUser={updateUser} />} />
+          <Route path="/reservation" element={<ReservationPage />} />
           <Route path="/airbnb/wishlist" element={<WishlistComp user={user} setUser={updateUser} />} />
           <Route path="/wishlist/:id" element={<WishDetailComp user={user} setUser={updateUser} />} />
           <Route path="/wishlist-property/:flatId" element={<WishlistPropertyComp user={user} setUser={updateUser} />} />

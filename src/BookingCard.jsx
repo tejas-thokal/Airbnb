@@ -1,11 +1,14 @@
 // BookingCard.js
 import "./BookingCard.css"; // you can style as needed
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function BookingCard({ price, checkInDate, checkOutDate, guests }) {
+export default function BookingCard({ price, checkInDate, checkOutDate, guests, property }) {
     const [checkIn, setCheckIn] = useState(checkInDate || "");
     const [checkOut, setCheckOut] = useState(checkOutDate || "");
-    const [guestCount, setGuestCount] = useState(guests || 1);  
+    const [guestCount, setGuestCount] = useState(guests || 1);
+    const navigate = useNavigate();
+    const location = useLocation();
 
   const calcNights = () => {
     const d1 = new Date(checkIn);
@@ -53,7 +56,21 @@ export default function BookingCard({ price, checkInDate, checkOutDate, guests }
         </div>
       </div>
 
-      <button className="reserve-btn">Reserve</button>
+      <button 
+        className="reserve-btn" 
+        onClick={() => {
+          navigate('/reservation', {
+            state: {
+              propertyData: property,
+              checkIn,
+              checkOut,
+              guestCount
+            }
+          });
+        }}
+      >
+        Reserve
+      </button>
       <p className="note">You won't be charged yet</p>
 
       <a href="#!" className="report-link">🚩 Report this listing</a>

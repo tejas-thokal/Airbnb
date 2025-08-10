@@ -1,0 +1,280 @@
+.reservation-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 80px 24px 40px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.reservation-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  left: 0;
+}
+
+.reservation-header h1 {
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.reservation-content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+}
+
+/* Left column - Reservation details */
+.reservation-details {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.trip-section,
+.payment-section,
+.cancellation-section,
+.ground-rules-section,
+.agreement-section {
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 32px;
+}
+
+.trip-section h2,
+.payment-section h2,
+.cancellation-section h2,
+.ground-rules-section h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.trip-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  align-items: center;
+}
+
+.detail-label {
+  font-weight: 600;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #222222;
+  font-size: 14px;
+}
+
+/* Payment section */
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.payment-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+}
+
+.payment-option.selected {
+  border-color: #222222;
+}
+
+.payment-option-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.payment-logos {
+  display: flex;
+  gap: 8px;
+  font-size: 24px;
+  color: #717171;
+}
+
+.payment-redirect {
+  font-size: 14px;
+  color: #717171;
+}
+
+/* Cancellation section */
+.cancellation-section p {
+  line-height: 1.5;
+  color: #222222;
+}
+
+/* Ground rules section */
+.ground-rules-section ul {
+  padding-left: 20px;
+  margin-top: 16px;
+}
+
+.ground-rules-section li {
+  margin-bottom: 8px;
+}
+
+/* Agreement section */
+.agreement-section p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #717171;
+}
+
+.confirm-button {
+  background: linear-gradient(to right, #e31c5f, #d70466);
+  color: white;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 32px;
+  transition: transform 0.1s;
+}
+
+.confirm-button:hover {
+  transform: scale(1.02);
+}
+
+/* Right column - Price summary */
+.price-summary {
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  padding: 24px;
+  height: fit-content;
+  position: sticky;
+  top: 80px;
+}
+
+.property-card {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 24px;
+}
+
+.property-image {
+  width: 124px;
+  height: 106px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.property-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.property-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.property-type {
+  font-size: 12px;
+  color: #717171;
+}
+
+.property-name {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.property-rating {
+  font-size: 12px;
+  margin-top: auto;
+}
+
+.property-rating i {
+  color: #ff385c;
+}
+
+.price-details h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.price-row.total {
+  font-weight: 600;
+  border-top: 1px solid #dddddd;
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .reservation-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .price-summary {
+    order: -1;
+    position: static;
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .reservation-container {
+    padding: 60px 16px 24px;
+  }
+  
+  .reservation-header h1 {
+    font-size: 24px;
+  }
+  
+  .detail-row {
+    grid-template-columns: 80px 1fr auto;
+  }
+  
+  .property-card {
+    flex-direction: column;
+  }
+  
+  .property-image {
+    width: 100%;
+    height: 200px;
+  }
+}

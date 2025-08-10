@@ -446,6 +446,7 @@ export default function PropertyinDetails() {
             checkInDate={checkInDate}
             checkOutDate={checkOutDate}
             guests={guests}
+            property={propertyData}
           />
         </div>
       </div>
