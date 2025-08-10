@@ -256,7 +256,7 @@ const handleSearch = () => {
                                                 <Link to={"/airbnb/wishlist"}><li><i className="fas fa-heart"></i> Wishlists</li></Link>
                                                 <li><i className="fas fa-suitcase"></i> Trips</li>
                                                 <li><i className="fas fa-envelope"></i> Messages</li>
-                                                <li><i className="fas fa-user"></i> Profile</li>
+                                                <Link to={"/profile"}><li><i className="fas fa-user"></i> Profile</li></Link>
                                                 <hr />
                                                 <li><i className="fas fa-bell"></i> Notifications</li>
                                                 <li><i className="fas fa-cog"></i> Account settings</li>

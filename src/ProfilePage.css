@@ -1,0 +1,234 @@
+.profile-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.profile-content {
+  display: flex;
+  padding: 80px 40px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  margin-top: 30px;
+}
+
+.profile-sidebar {
+  width: 250px;
+  padding-right: 40px;
+  border-right: 1px solid #ebebeb;
+}
+
+.profile-sidebar h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.profile-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-nav li {
+  margin-bottom: 16px;
+  cursor: pointer;
+  padding: 8px 0;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.profile-nav li.active {
+  background-color: #f7f7f7;
+}
+
+.profile-nav li:hover {
+  background-color: #f7f7f7;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.nav-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+.nav-icon i {
+  font-size: 14px;
+}
+
+.profile-main-content {
+  flex: 1;
+  padding-left: 40px;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.profile-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.edit-button {
+  padding: 8px 16px;
+  border: 1px solid #222;
+  background-color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.edit-button:hover {
+  background-color: #f7f7f7;
+}
+
+.profile-avatar-large {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.profile-completion {
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 40px;
+}
+
+.completion-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.completion-info p {
+  color: #717171;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.get-started-button {
+  padding: 8px 16px;
+  background-color: #ff385c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.get-started-button:hover {
+  background-color: #e31c5f;
+}
+
+.reviews-section {
+  margin-top: 32px;
+}
+
+.reviews-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.reviews-header i {
+  margin-right: 8px;
+  color: #222;
+}
+
+.no-reviews {
+  color: #717171;
+}
+
+/* Trips tab styles */
+.trips-illustration, .connections-illustration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.trips-illustration img, .connections-illustration img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+.trips-illustration p, .connections-illustration p {
+  color: #717171;
+  max-width: 400px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.book-trip-button {
+  padding: 8px 16px;
+  background-color: #ff385c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.book-trip-button:hover {
+  background-color: #e31c5f;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .profile-content {
+    flex-direction: column;
+    padding: 80px 20px 20px;
+  }
+  
+  .profile-sidebar {
+    width: 100%;
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-main-content {
+    padding-left: 0;
+  }
+}

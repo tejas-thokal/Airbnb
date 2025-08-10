@@ -11,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 import { checkAuth, handleAuthRedirect } from './auth';
 import GooglePhoneCollection from './GooglePhoneCollection';
 import ReservationPage from './ReservationPage';
+import ProfilePageComp from './ProfilePageComp';
 
 // Create a context for user authentication
 import { createContext } from 'react';
@@ -101,6 +102,7 @@ function App() {
           <Route path="/wishlist/:id" element={<WishDetailComp user={user} setUser={updateUser} />} />
           <Route path="/wishlist-property/:flatId" element={<WishlistPropertyComp user={user} setUser={updateUser} />} />
           <Route path="/search" element={<SearchResultComp user={user} setUser={updateUser} />} />
+          <Route path="/profile" element={<ProfilePageComp user={user} setUser={updateUser} />} />
         </Routes>
       </Router>
     </AuthContext.Provider>
