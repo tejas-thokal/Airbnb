@@ -21,7 +21,17 @@ export default function Home({user: propUser, setUser: propSetUser}) {
   const isLoggedIn = !!userFirstName;
 
 
-  const handleCloseLogin = () => setShowLogin(false);
+  const handleCloseLogin = (userData) => {
+    if (userData) {
+      // If user data is provided, update the user state
+      if (typeof setUser === 'function') {
+        setUser(userData);
+      } else {
+        console.warn('setUser function not available');
+      }
+    }
+    setShowLogin(false);
+  };
 
   return (
     <>

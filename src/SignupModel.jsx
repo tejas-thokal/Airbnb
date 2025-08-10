@@ -11,6 +11,32 @@ export default function SignupModal({ onClose, phone }) {
   const handleSignup = async () => {
   const phoneNumber = phone || localStorage.getItem("phoneNumber");
 
+  // First check if user already exists with this phone number
+  try {
+    const checkResponse = await fetch(`${baseURL}/api/check-user-exists`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ phonenumber: phoneNumber })
+    });
+
+    const checkData = await checkResponse.json();
+    
+    if (checkResponse.ok && checkData.exists) {
+      // User already exists, log them in directly
+      console.log("✅ User already exists, logging in directly");
+      localStorage.setItem("user", JSON.stringify(checkData.user));
+      onClose(checkData.user);
+      alert("✅ Login successful!");
+      return;
+    }
+  } catch (error) {
+    console.error("Error checking user existence:", error);
+    // Continue with signup flow if check fails
+  }
+
+  // Proceed with signup if user doesn't exist
   const signupData = {
     phonenumber: phoneNumber,
     first_name: firstName,

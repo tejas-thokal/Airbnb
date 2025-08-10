@@ -26,6 +26,27 @@ export default function LoginModel({ onClose, onContinue }) {
     }
 
     try {
+      // First check if this phone number already exists in the database
+      const checkResponse = await fetch(`${baseURL}/api/check-user-exists`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ phonenumber: trimmedPhone })
+      });
+
+      const checkData = await checkResponse.json();
+      
+      if (checkResponse.ok && checkData.exists) {
+        // User exists, log them in directly
+        console.log("✅ User found, logging in directly");
+        localStorage.setItem("user", JSON.stringify(checkData.user));
+        alert("✅ Login successful!");
+        onClose(checkData.user); // Close modal and pass user data
+        return;
+      }
+      
+      // If user doesn't exist, continue with registration flow
       const response = await fetch(`${baseURL}/check-phone`, {
         method: 'POST',
         headers: {
