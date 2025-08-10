@@ -3,14 +3,24 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapView.css";
+import { useEffect } from "react";
+
+// Fix Leaflet's default icon path issues
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png"
+});
 
 // Custom Home Icon
-// const homeIcon = new L.Icon({
-//   iconUrl: "https://cdn-icons-png.flaticon.com/512/25/25694.png", // home icon
-//   iconSize: [30, 30],
-//   iconAnchor: [15, 30],
-//   popupAnchor: [0, -30],
-// });
+const homeIcon = new L.Icon({
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/25/25694.png", // home icon
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+  popupAnchor: [0, -30],
+});
 
 export default function MapView({ flats = [], highlightId = null }) {
   console.log("MapView received flats:", flats);
@@ -53,6 +63,7 @@ export default function MapView({ flats = [], highlightId = null }) {
           <Marker
             key={flat.id}
             position={[flat.lat, flat.lng]}
+            icon={homeIcon}
           >
             <Popup>
               {flat.title}
