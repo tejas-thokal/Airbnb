@@ -5,8 +5,11 @@ import { loginWithGoogle } from './auth';
 
 export default function LoginModel({ onClose, onContinue }) {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isPhoneLoading, setIsPhoneLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setIsPhoneLoading(true);
     console.log("▶️ Submit clicked");
     console.log("➡️ baseURL:", baseURL);
     console.log("➡️ Sending to:", `${baseURL}/check-phone`);
@@ -73,6 +76,20 @@ export default function LoginModel({ onClose, onContinue }) {
     } catch (error) {
       console.error("🚨 Network error:", error);
       alert("🚨 Could not connect to the server.");
+    } finally {
+      setIsPhoneLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsGoogleLoading(true);
+    try {
+      await loginWithGoogle();
+    } catch (error) {
+      console.error("🚨 Google login error:", error);
+      alert("🚨 Could not login with Google.");
+    } finally {
+      setIsGoogleLoading(false);
     }
   };
 
@@ -104,29 +121,32 @@ export default function LoginModel({ onClose, onContinue }) {
           <a href="#">Privacy Policy</a>
         </p>
 
-        <button className="continue-btn" onClick={handleSubmit}>Continue</button>
+        <button className="continue-btn" onClick={handleSubmit} disabled={isPhoneLoading || isGoogleLoading}>
+          {isPhoneLoading ? 'Loading...' : 'Continue'}
+        </button>
 
         <div className="divider"><span>or</span></div>
 
         <button 
           className="login-btn google" 
-          onClick={loginWithGoogle}
+          onClick={handleGoogleLogin}
+          disabled={isPhoneLoading || isGoogleLoading}
         >
           <i className="fa-brands fa-google" style={{ color: "#DB4437" }}></i>
-          Continue with Google
+          {isGoogleLoading ? 'Loading...' : 'Continue with Google'}
         </button>
 
-        <button className="login-btn apple">
+        <button className="login-btn apple" disabled={isPhoneLoading || isGoogleLoading}>
           <i className="fa-brands fa-apple"></i>
           Continue with Apple
         </button>
 
-        <button className="login-btn email">
+        <button className="login-btn email" disabled={isPhoneLoading || isGoogleLoading}>
           <i className="fa-solid fa-envelope" style={{ color: "#666666" }}></i>
           Continue with email
         </button>
 
-        <button className="login-btn email">
+        <button className="login-btn email" disabled={isPhoneLoading || isGoogleLoading}>
           <i className="fa-brands fa-facebook" style={{ color: "#1877F2" }}></i>
           Continue with Facebook
         </button>

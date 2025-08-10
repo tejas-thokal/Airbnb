@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -8,6 +8,8 @@ export default function ReservationPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { propertyData, checkIn, checkOut, guestCount } = location.state || {};
+  const footerRef = useRef(null);
+  const outerPriceRef = useRef(null);
   
   // If no property data is passed, redirect to home
   useEffect(() => {
@@ -15,6 +17,30 @@ export default function ReservationPage() {
       navigate('/');
     }
   }, [propertyData, navigate]);
+  
+  // Handle scroll behavior for payment summary
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!footerRef.current || !outerPriceRef.current || window.innerWidth <= 900) return;
+      
+      const footerRect = footerRef.current.getBoundingClientRect();
+      const outerPriceEl = outerPriceRef.current;
+      const windowHeight = window.innerHeight;
+      
+      // When footer is approaching viewport
+      if (footerRect.top < windowHeight) {
+        const distanceFromBottom = footerRect.top - windowHeight;
+        outerPriceEl.style.top = `${80 + distanceFromBottom}px`;
+      } else {
+        outerPriceEl.style.top = '80px';
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Calculate nights and prices
   const calcNights = () => {
@@ -47,13 +73,6 @@ export default function ReservationPage() {
     <>
       <Navbar />
       <div className="reservation-container">
-        <div className="reservation-header">
-          <button className="back-button" onClick={() => navigate(-1)}>
-            <i className="fa-solid fa-chevron-left"></i> Back
-          </button>
-          <h1>Request to book</h1>
-        </div>
-
         <div className="reservation-content">
           <div className="reservation-details">
             <div className="trip-section">
@@ -122,42 +141,48 @@ export default function ReservationPage() {
             <button className="confirm-button">Continue</button>
           </div>
 
-          <div className="price-summary">
-            <div className="property-card">
-              <div className="property-image">
-                <img src={propertyData.imgUrl} alt={propertyData.title} />
-              </div>
-              <div className="property-info">
-                <div className="property-type">Entire apartment</div>
-                <div className="property-name">{propertyData.title}</div>
-                <div className="property-rating">
-                  <i className="fa-solid fa-star"></i> {propertyData.rating} ({Math.floor(Math.random() * 50) + 10} reviews)
+          <div className="fixed">
+            <div className="outerprice" ref={outerPriceRef}>
+              <div className="price-summary">
+                <div className="property-card">
+                  <div className="property-image">
+                    <img src={propertyData.imgUrl} alt={propertyData.title} />
+                  </div>
+                  <div className="property-info">
+                    <div className="property-type">Entire apartment</div>
+                    <div className="property-name">{propertyData.title}</div>
+                    <div className="property-rating">
+                      <i className="fa-solid fa-star"></i> {propertyData.rating} ({Math.floor(Math.random() * 50) + 10} reviews)
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="price-details">
-              <h3>Price details</h3>
-              
-              <div className="price-row">
-                <div className="price-label">{nights} nights x ₹{(discountedPrice / nights).toLocaleString()}</div>
-                <div className="price-value">₹{discountedPrice.toLocaleString()}</div>
-              </div>
-              
-              <div className="price-row">
-                <div className="price-label">Service fee</div>
-                <div className="price-value">₹{serviceFee.toLocaleString()}</div>
-              </div>
-              
-              <div className="price-row total">
-                <div className="price-label">Total (INR)</div>
-                <div className="price-value">₹{totalPrice.toLocaleString()}</div>
+                <div className="price-details">
+                  <h3>Price details</h3>
+                  
+                  <div className="price-row">
+                    <div className="price-label">{nights} nights x ₹{(discountedPrice / nights).toLocaleString()}</div>
+                    <div className="price-value">₹{discountedPrice.toLocaleString()}</div>
+                  </div>
+                  
+                  <div className="price-row">
+                    <div className="price-label">Service fee</div>
+                    <div className="price-value">₹{serviceFee.toLocaleString()}</div>
+                  </div>
+                  
+                  <div className="price-row total">
+                    <div className="price-label">Total (INR)</div>
+                    <div className="price-value">₹{totalPrice.toLocaleString()}</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <Footer />
+      <div ref={footerRef}>
+        <Footer />
+      </div>
     </>
   );
 }

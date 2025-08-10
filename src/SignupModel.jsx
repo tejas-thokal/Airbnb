@@ -7,8 +7,10 @@ export default function SignupModal({ onClose, phone }) {
   const [lastName, setLastName] = useState('');
   const [dob, setDob] = useState('');
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSignup = async () => {
+  setIsLoading(true);
   const phoneNumber = phone || localStorage.getItem("phoneNumber");
 
   // First check if user already exists with this phone number
@@ -78,6 +80,8 @@ export default function SignupModal({ onClose, phone }) {
   } catch (error) {
     console.error("Signup error:", error);
     alert("❌ " + error.message);
+  } finally {
+    setIsLoading(false);
   }
 };
 
@@ -127,7 +131,9 @@ export default function SignupModal({ onClose, phone }) {
           <a href="#"> Privacy Policy</a>.
         </div>
 
-        <button className="continue-btn" onClick={handleSignup}>Agree and continue</button>
+        <button className="continue-btn" onClick={handleSignup} disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Agree and continue'}
+        </button>
 
         <div className="marketing">
           <input type="checkbox" id="marketing" />
